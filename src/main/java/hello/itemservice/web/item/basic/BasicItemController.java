@@ -27,14 +27,14 @@ public class BasicItemController {
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
-        model.addAttribute("items", items);
+        model.addAttribute("items", items); // 모델에 들어간다 items라는 이름으로 타임리프에서 사용할 것이라 예상 -> 확신
         return "basic/items";
     }
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
-        model.addAttribute("item", item);
+        model.addAttribute("item", item); // 모델에 들어간다 items라는 이름으로 타임리프에서 사용한다. 화면에서 사용한다.
         return "basic/item";
     }
 
@@ -60,10 +60,11 @@ public class BasicItemController {
 
     /**
      * @ModelAttribute("item") Item item
-     * model.addAttribute("item", item); 자동 추가 */
+     * model.addAttribute("item", it tem); 자동 추가 */
     //@PostMapping("/add")
     public String addItemV2(@ModelAttribute("item") Item item, Model model) {
-        itemRepository.save(item); //model.addAttribute("item", item); //자동 추가, 생략 가능
+        itemRepository.save(item);
+        //model.addAttribute("item", item); //자동 추가, 생략 가능
         return "basic/item";
     }
 
@@ -80,7 +81,7 @@ public class BasicItemController {
     /**
      * @ModelAttribute 자체 생략 가능
      * model.addAttribute(item) 자동 추가 */
-    // @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
         return "basic/item";
